@@ -15,13 +15,10 @@ public class Worker {
 	public int parse(String arithmetic) {
 		String[] parts = arithmetic.split(" ");
 
-		switch (parts.length) {
-
-		case 3:
+		if (parts.length == 3) {
 			return multiple.multipleValue(parts);
-		default:
-			return single.singleValue(arithmetic);
 		}
+		return single.singleValue(arithmetic);
 
 	}
 }

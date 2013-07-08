@@ -1,30 +1,24 @@
 package secondpass;
 
+import static java.lang.Integer.parseInt;
+
 public class MultipleElementCalculator {
 
-	private final Adder adder;
-	private final Subtractor subtractor;
-	private final Multiplier multiplier;
-	private final Divider divider;
+	private final Operator[] operators;
 
-	MultipleElementCalculator(Adder adder, Subtractor subtractor,
-			Multiplier multiplier, Divider divider) {
-		this.adder = adder;
-		this.subtractor = subtractor;
-		this.multiplier = multiplier;
-		this.divider = divider;
+	MultipleElementCalculator(Operator... operators) {
+		this.operators = operators;
 
 	}
 
 	public int multipleValue(String[] parts) {
 		int result = 0;
-		int first = Integer.parseInt(parts[0]);
-		int second = Integer.parseInt(parts[2]);
-		String operator = parts[1];
-		result = adder.operate(operator, first, second, 0);
-		result = subtractor.operate(operator, first, second, result);
-		result = multiplier.operate(operator, first, second, result);
-		result = divider.operate(operator, first, second, result);
+		int first = parseInt(parts[0]);
+		int second = parseInt(parts[2]);
+		String operatorSymbol = parts[1];
+		for (Operator operator : operators) {
+			result = operator.operate(operatorSymbol, first, second, result);
+		}
 		return result;
 	}
 }
